@@ -1,14 +1,16 @@
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Image, View } from 'react-native'
 import { styles } from './styles';
 import logo from '../assets/logo.png'
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
+import { useAuth } from '../contexts/Auth';
 
 export function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const { signIn } = useAuth()
 
     return (
         <View style={[styles.container, {justifyContent: 'center'}]}>
@@ -28,7 +30,10 @@ export function SignIn() {
             value={password}
             onChangeText={setPassword}
           />
-          <Button title='Login'/>
+          <Button
+            onPress={() => signIn(email, password)}
+            title='Login'
+           />
       </View>
     );
 }
